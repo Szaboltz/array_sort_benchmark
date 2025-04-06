@@ -1,52 +1,199 @@
-import java.util.Random;
+import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
-        Random random = new Random();
-        int[] sorted_array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        int[] reversed_array = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-        int[] random_array = new int[10];
+        //  10000 || 50000 || 100000 || 300000
+        int N = 300000;
 
-        for (int x = 0; x < 10; x++){
-            random_array[x] = random.nextInt(10);
-        }
+        int[] sorted_array = new int[N];
+        int[] reversed_array = new int[N];
+        int[] random_array = new int[N];
 
+        inicializarVetor(sorted_array, N, 1); // Crescente
+        inicializarVetor(reversed_array, N, 2); // Decrescente
+        inicializarVetor(random_array, N, 0); // Aleatório
+
+//        exibirVetor(sorted_array, N);
+//        exibirVetor(reversed_array, N);
+//        exibirVetor(random_array, N);
+
+        long inicio, fim, tempoS, tempoMS;
+
+//        inicio = System.currentTimeMillis();
 //        bubbleSort(sorted_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Bubble Sort - Vetor Ordenado: " + tempoS + "s" + tempoMS + "ms");
+//
+//        inicio = System.currentTimeMillis();
 //        bubbleSort(reversed_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Bubble Sort - Vetor Invertido: " + tempoS + "s" + tempoMS + "ms");
+//
+//        inicio = System.currentTimeMillis();
 //        bubbleSort(random_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Bubble Sort - Vetor Aleatório: " + tempoS + "s" + tempoMS + "ms");
+
+//        inicio = System.currentTimeMillis();
 //        selection_sort(sorted_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Selection Sort - Vetor Ordenado: " + tempoS + "s" + tempoMS + "ms");
+//
+//        inicio = System.currentTimeMillis();
 //        selection_sort(reversed_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Selection Sort - Vetor Invertido: " + tempoS + "s" + tempoMS + "ms");
+//
+//        inicio = System.currentTimeMillis();
 //        selection_sort(random_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Selection Sort - Vetor Aleatório: " + tempoS + "s" + tempoMS + "ms");
+
+//        inicio = System.currentTimeMillis();
 //        insertion_sort(sorted_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Insertion Sort - Vetor Ordenado: " + tempoS + "s" + tempoMS + "ms");
+//
+//        inicio = System.currentTimeMillis();
 //        insertion_sort(reversed_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Insertion Sort - Vetor Invertido: " + tempoS + "s" + tempoMS + "ms");
+//
+//        inicio = System.currentTimeMillis();
 //        insertion_sort(random_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Insertion Sort - Vetor Aleatório: " + tempoS + "s" + tempoMS + "ms");
+
+//        inicio = System.currentTimeMillis();
 //        merge_sort(sorted_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Merge Sort - Vetor Ordenado: " + tempoS + "s" + tempoMS + "ms");
+//
+//        inicio = System.currentTimeMillis();
 //        merge_sort(reversed_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Merge Sort - Vetor Invertido: " + tempoS + "s" + tempoMS + "ms");
+//
+//        inicio = System.currentTimeMillis();
 //        merge_sort(random_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Merge Sort - Vetor Aleatório: " + tempoS + "s" + tempoMS + "ms");
+
+//        inicio = System.currentTimeMillis();
 //        heapsort(sorted_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Heapsort - Vetor Ordenado: " + tempoS + "s" + tempoMS + "ms");
+//
+//        inicio = System.currentTimeMillis();
 //        heapsort(reversed_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Heapsort - Vetor Invertido: " + tempoS + "s" + tempoMS + "ms");
+//
+//        inicio = System.currentTimeMillis();
 //        heapsort(random_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("Heapsort - Vetor Aleatório: " + tempoS + "s" + tempoMS + "ms");
+
+//        inicio = System.currentTimeMillis();
 //        counting_sort(sorted_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("counting_sort - Vetor Ordenado: " + tempoS + "s" + tempoMS + "ms");
+//
+//        inicio = System.currentTimeMillis();
 //        counting_sort(reversed_array);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("counting_sort - Vetor Invertido: " + tempoS + "s" + tempoMS + "ms");
+//
+//        inicio = System.currentTimeMillis();
 //        counting_sort(random_array);
-//        quick_sort(sorted_array, 0, sorted_array.length - 1);
-//        quick_sort(reversed_array, 0, reversed_array.length - 1);
-//        quick_sort(random_array, 0, random_array.length - 1);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("counting_sort - Vetor Aleatório: " + tempoS + "s" + tempoMS + "ms");
 
+//        inicio = System.currentTimeMillis();
+//        quick_sort(sorted_array, 0, sorted_array.length);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("quicksort - Vetor Ordenado: " + tempoS + "s " + tempoMS + "ms");
+//
+//        inicio = System.currentTimeMillis();
+//        quick_sort(reversed_array, 0, reversed_array.length);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("quicksort - Vetor Invertido: " + tempoS + "s " + tempoMS + "ms");
+//
+//        inicio = System.currentTimeMillis();
+//        quick_sort(random_array, 0, random_array.length);
+//        fim = System.currentTimeMillis();
+//        tempoS = (fim - inicio) / 1000;
+//        tempoMS = (fim - inicio) - tempoS * 1000;
+//        System.out.println("quicksort - Vetor Aleatório: " + tempoS + "s " + tempoMS + "ms");
+    }
 
-        for (int num : sorted_array) {
-            System.out.print(num + " ");
-        }
-        System.out.println("\n");
-        for (int num : reversed_array) {
-            System.out.print(num + " ");
-        }
-        System.out.println("\n");
-        for (int num : random_array) {
-            System.out.print(num + " ");
+    public static void inicializarVetor(int vet[], int N, int s) {
+        switch(s){
+            case 0:
+                for (int i = 0; i < N; i++)
+                    vet[i] = (int) (Math.random() * (N * 2));
+                break;
+            case 1:
+                for (int i = 0; i < N; i++)
+                    vet[i] = i+1;
+                break;
+            case 2:
+                for (int i = 0; i < N; i++)
+                    vet[i] = N - i;
+                break;
         }
     }
 
+    private static void exibirVetor(int[] vet, int N) {
+        for (int i = 0; i < N; i++) {
+            if (vet[i] < 10) {
+                System.out.print("0" + vet[i] + " ");
+            } else {
+                System.out.print(vet[i] + " ");
+            }
+        }
+        System.out.println("");
+    }
 
     public static void bubbleSort(int[] array) {
         int n = array.length;
@@ -212,37 +359,28 @@ public class Main {
         }
     }
 
-    public static void quick_sort(int[] array, int low, int high) {
-        if (low < high) {
-            // Partition the array and get the pivot index
-            int pivotIndex = partition(array, low, high);
+    public static void quick_sort(int[] array, int begin, int end) {
+        if (begin >= end - 1) return; // Caso base: array de 1 ou 0 elementos já está ordenado
 
-            // Recursively sort elements before and after the pivot
-            quick_sort(array, low, pivotIndex - 1);
-            quick_sort(array, pivotIndex + 1, high);
-        }
-    }
+        int i = begin;
+        int j = end - 1;
+        int pivot = array[begin + (end - begin) / 2];
+        int aux;
 
-    private static int partition(int[] array, int low, int high) {
-        int pivot = array[high]; // Choose the last element as pivot
-        int i = low - 1; // Index of smaller element
+        while (i <= j) {
+            while (i < end && array[i] < pivot) i++;
+            while (j >= begin && array[j] > pivot) j--;
 
-        for (int j = low; j < high; j++) {
-            // If current element is less than or equal to pivot
-            if (array[j] <= pivot) {
-                i++;
-                // Swap array[i] and array[j]
-                int temp = array[i];
+            if (i <= j) {
+                aux = array[i];
                 array[i] = array[j];
-                array[j] = temp;
+                array[j] = aux;
+                i++;
+                j--;
             }
         }
 
-        // Swap array[i + 1] and array[high] (pivot)
-        int temp = array[i + 1];
-        array[i + 1] = array[high];
-        array[high] = temp;
-
-        return i + 1; // Return the partition index
+        if (begin < j) quick_sort(array, begin, j + 1);
+        if (i < end) quick_sort(array, i, end);
     }
 }
